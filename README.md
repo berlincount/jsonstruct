@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/berlincount/go-jsonstruct.svg?branch=master)](https://travis-ci.org/berlincount/go-jsonstruct)
 
-A deserializer of Go structures from JSON for Go 1.7+.
+A JSON deserializer for Go structures for Go 1.7+
 
-Also visit, [Godoc](http://godoc.org/github.com/berlincount/go-jsonstruct).
+Also visit [Godoc](http://godoc.org/github.com/berlincount/go-jsonstruct).
 
 ## Installation
 
@@ -25,7 +25,7 @@ jsonstruct uses [StructOf](http://golang.org/pkg/reflect/#StructOf) to
 construct a [Type](http://golang.org/pkg/reflect/#Type) which can be used to
 create [Value](http://golang.org/pkg/reflect/#Value)s which then can be used by
 other packages using reflection for structure discovery, like
-[sqlx](https://github.com/jmoiron/sqlx)
+[SQLx](https://github.com/jmoiron/sqlx)
 
 jsonstruct uses the following structures for descriptions:
 
@@ -74,9 +74,10 @@ API](http://godoc.org/github.com/google/jsonapi) using the following structure:
 ## Example Apps
 
 [src/jsonapi/example.go](https://github.com/berlincount/go-jsonstruct/blob/master/src/jsonapi/example.go)
+
 [src/database/example.go](https://github.com/berlincount/go-jsonstruct/blob/master/src/database/example.go)
 
-These runnable files show using jsonstruct alone as well as in conjunction with a database.
+These runnable files show using jsonstruct with JSON API as well as in conjunction with a database using SQLx.
 
 You can use [GB](https://getgb.io/) to build example binaries.
 
