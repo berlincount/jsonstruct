@@ -1,4 +1,4 @@
-# jsonapi
+# jsonstruct
 
 [![Build Status](https://travis-ci.org/berlincount/go-jsonstruct.svg?branch=master)](https://travis-ci.org/berlincount/go-jsonstruct)
 
