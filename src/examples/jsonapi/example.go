@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/berlincount/go-jsonstruct"
+	"github.com/berlincount/jsonstruct"
 
 	"bytes"
 	"fmt"
