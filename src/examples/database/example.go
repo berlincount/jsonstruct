@@ -1,7 +1,7 @@
 package main
 
 import (
-	"jsonstruct"
+	"github.com/berlincount/go-jsonstruct"
 
 	"reflect"
 	"strings"
