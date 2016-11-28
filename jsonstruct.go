@@ -1,1 +1,1 @@
-src/github.com/berlincount/jsonstruct/jsonstruct.go
+src/jsonstruct/jsonstruct.go
