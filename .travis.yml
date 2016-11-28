@@ -2,4 +2,6 @@ language: go
 go:
  - 1.7
  - tip
-script: go test -v .
+script:
+ - go get github.com/constabulary/gb/...
+ - gb test -v
