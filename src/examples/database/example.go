@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/berlincount/jsonstruct"
+	"jsonstruct"
 
 	"reflect"
 	"strings"
