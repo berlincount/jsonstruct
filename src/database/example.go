@@ -2,6 +2,7 @@ package main
 
 import (
 	"jsonstruct"
+
 	"reflect"
 	"strings"
 

@@ -1,9 +1,10 @@
 package main
 
 import (
+	"jsonstruct"
+
 	"bytes"
 	"fmt"
-	"jsonstruct"
 	"reflect"
 	"strings"
 	"time"
