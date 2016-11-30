@@ -1,56 +1,5 @@
 {
 	"version": 0,
 	"dependencies": [
-		{
-			"importpath": "github.com/PuerkitoBio/goquery",
-			"repository": "https://github.com/PuerkitoBio/goquery",
-			"revision": "152b1a2c8f5d0340f658bb656032a39b94e52958",
-			"branch": "master"
-		},
-		{
-			"importpath": "github.com/andybalholm/cascadia",
-			"repository": "https://github.com/andybalholm/cascadia",
-			"revision": "65919c611220063037b1db8eb334acaf17a6d8ea",
-			"branch": "master"
-		},
-		{
-			"importpath": "github.com/davecgh/go-spew/spew",
-			"repository": "https://github.com/davecgh/go-spew",
-			"revision": "346938d642f2ec3594ed81d874461961cd0faa76",
-			"branch": "master",
-			"path": "/spew"
-		},
-		{
-			"importpath": "github.com/google/jsonapi",
-			"repository": "https://github.com/google/jsonapi",
-			"revision": "925ebf2136461bb9d121340ec95a719bf9073d1c",
-			"branch": "master"
-		},
-		{
-			"importpath": "github.com/jmoiron/sqlx",
-			"repository": "https://github.com/jmoiron/sqlx",
-			"revision": "f71d5ee01769df469d115332106ef504ded071dc",
-			"branch": "master"
-		},
-		{
-			"importpath": "github.com/mattn/go-sqlite3",
-			"repository": "https://github.com/mattn/go-sqlite3",
-			"revision": "fba66eb11643069e747022997e9be3b502b2c6fb",
-			"branch": "master"
-		},
-		{
-			"importpath": "golang.org/x/net/context",
-			"repository": "https://go.googlesource.com/net",
-			"revision": "4971afdc2f162e82d185353533d3cf16188a9f4e",
-			"branch": "master",
-			"path": "/context"
-		},
-		{
-			"importpath": "golang.org/x/net/html",
-			"repository": "https://go.googlesource.com/net",
-			"revision": "4971afdc2f162e82d185353533d3cf16188a9f4e",
-			"branch": "master",
-			"path": "/html"
-		}
 	]
 }
