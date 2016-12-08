@@ -33,7 +33,6 @@ jsonstruct uses the following structures for descriptions:
 ```go
 type Field struct {
         Name      string            "json:\"name\""
-        PkgPath   string            "json:\"pkgpath,omitempty\""
         Type      string            "json:\"type\""
         Tags      reflect.StructTag "json:\"tags\""
         Anonymous bool              "json:\"anonymous,omitempty\""
