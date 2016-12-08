@@ -6,6 +6,8 @@ import (
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 type testStruct struct {
@@ -187,4 +189,23 @@ func TestDecode4(t *testing.T) {
 	if err == nil {
 		panic("not getting an error when trying to create struct with private field")
 	}
+}
+
+func ExampleDecode() {
+	testStructJSON := `
+        {"struct": "test",
+         "fields": [
+          {"name": "TestInt",    "type": "int",    "tags": "testTag:\"first_field\""},
+          {"name": "TestString", "type": "string", "tags": "testTag:\"second_field\""}
+        ]}
+	`
+	decodedStructs, _ := jsonstruct.Decode(strings.NewReader(testStructJSON))
+
+	spewWithoutAddresses := spew.ConfigState{DisablePointerAddresses: true}
+	spewWithoutAddresses.Dump(decodedStructs)
+	// Output:
+	// ([]reflect.Type) (len=1 cap=1) {
+	// (*reflect.rtype)(struct { TestInt int "testTag:\"first_field\""; TestString string "testTag:\"second_field\"" })
+	// }
+
 }
