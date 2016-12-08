@@ -34,10 +34,9 @@ func init() {
 
 // Field holds a JSON description of individual Go fields
 type Field struct {
-	Name      string            "json:\"name\""
-	Type      string            "json:\"type\""
-	Tags      reflect.StructTag "json:\"tags\""
-	Anonymous bool              "json:\"anonymous,omitempty\""
+	Name string            "json:\"name\""
+	Type string            "json:\"type\""
+	Tags reflect.StructTag "json:\"tags\""
 }
 
 // Struct holds JSON description of Go structures
@@ -81,7 +80,7 @@ func Decode(r io.Reader) ([]reflect.Type, error) {
 				Tag:       field.Tags,
 				Offset:    0,
 				Index:     nil,
-				Anonymous: field.Anonymous})
+				Anonymous: false})
 		}
 
 		// create new struct type (and register it)

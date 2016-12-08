@@ -35,7 +35,6 @@ type Field struct {
         Name      string            "json:\"name\""
         Type      string            "json:\"type\""
         Tags      reflect.StructTag "json:\"tags\""
-        Anonymous bool              "json:\"anonymous,omitempty\""
 }
 
 type Struct struct {
