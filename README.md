@@ -1,15 +1,16 @@
 # jsonstruct
 
-[![Build Status](https://travis-ci.org/berlincount/go-jsonstruct.svg?branch=master)](https://travis-ci.org/berlincount/go-jsonstruct)
+[![Build Status](https://travis-ci.org/berlincount/jsonstruct.svg?branch=master)](https://travis-ci.org/berlincount/jsonstruct) [![Build Status](https://drone.io/github.com/berlincount/jsonstruct/status.png)](https://drone.io/github.com/berlincount/jsonstruct/latest) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/berlincount/jsonstruct) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/berlincount/jsonstruct/master/LICENSE)
+
 
 A JSON deserializer for Go structures for Go 1.7+
 
-Also visit [Godoc](http://godoc.org/github.com/berlincount/go-jsonstruct).
+Also visit [Godoc](http://godoc.org/github.com/berlincount/jsonstruct).
 
 ## Installation
 
 ```
-go get -u github.com/berlincount/go-jsonstruct
+go get -u github.com/berlincount/jsonstruct
 ```
 
 ## Background
@@ -25,7 +26,7 @@ jsonstruct uses [StructOf](http://golang.org/pkg/reflect/#StructOf) to
 construct a [Type](http://golang.org/pkg/reflect/#Type) which can be used to
 create [Value](http://golang.org/pkg/reflect/#Value)s which then can be used by
 other packages using reflection for structure discovery, like
-[SQLx](https://github.com/jmoiron/sqlx)
+[sqlx](https://github.com/jmoiron/sqlx) or [GORM](https://github.com/jinzhu/gorm).
 
 jsonstruct uses the following structures for descriptions:
 
@@ -73,11 +74,13 @@ API](http://godoc.org/github.com/google/jsonapi) using the following structure:
 
 ## Example Apps
 
-[src/jsonapi/example.go](https://github.com/berlincount/go-jsonstruct/blob/master/src/jsonapi/example.go)
+[examples/jsonapi/example.go](https://github.com/berlincount/jsonstruct/blob/master/examples/jsonapi/example.go)
 
-[src/database/example.go](https://github.com/berlincount/go-jsonstruct/blob/master/src/database/example.go)
+[examples/database/sqlx.go](https://github.com/berlincount/jsonstruct/blob/master/examples/database/sqlx.go)
 
-These runnable files show using jsonstruct with JSON API as well as in conjunction with a database using SQLx.
+[examples/database/gorm.go](https://github.com/berlincount/jsonstruct/blob/master/examples/database/gorm.go)
+
+These runnable files show using jsonstruct with JSON API as well as in conjunction with a database using [sqlx](https://github.com/jmoiron/sqlx) or [GORM](https://github.com/jinzhu/gorm).
 
 You can use [GB](https://getgb.io/) to build example binaries.
 

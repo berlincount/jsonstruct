@@ -32,26 +32,26 @@ func init() {
 // Decoding
 
 type Field struct {
-	Name string            "json:name"
-	Type string            "json:type"
-	Tags reflect.StructTag "json:tags"
+	Name string            "json:\"name\""
+	Type string            "json:\"type\""
+	Tags reflect.StructTag "json:\"tags\""
 }
 type Struct struct {
-	Struct string "json:struct"
+	Struct string "json:\"struct\""
 	Fields []Field
 }
 
-func Decode(r io.Reader) (reflect.Type, error) {
+func Decode(r io.Reader) ([]reflect.Type, error) {
 	dec := json.NewDecoder(r)
 
 	// we're reconstructing a stream of one or more structs
 	var m Struct
-	var recon_struct reflect.Type = reflect.TypeOf(nil)
+	var reconStruct []reflect.Type
 	for {
 		// catch JSON decode errors
 		if err := dec.Decode(&m); err == io.EOF {
 			// EOF? return the last struct type we found
-			return recon_struct, nil
+			return reconStruct, nil
 		} else if err != nil {
 			return nil, err
 		}
@@ -62,14 +62,20 @@ func Decode(r io.Reader) (reflect.Type, error) {
 		}
 
 		// gather fields of struct
-		new_struct := make([]reflect.StructField, 0, len(m.Fields))
+		newStruct := make([]reflect.StructField, 0, len(m.Fields))
 		for _, field := range m.Fields {
-			new_struct = append(new_struct, reflect.StructField{field.Name, "", TypeMap[field.Type], field.Tags, 0, nil, false})
+			newStruct = append(newStruct, reflect.StructField{
+				Name:      field.Name,
+				PkgPath:   "",
+				Type:      TypeMap[field.Type],
+				Tag:       field.Tags,
+				Offset:    0,
+				Index:     nil,
+				Anonymous: false})
 		}
 
 		// create new struct type (and register it)
-		recon_struct = reflect.StructOf(new_struct)
-		MapType(m.Struct, recon_struct)
+		reconStruct = append(reconStruct, reflect.StructOf(newStruct))
+		MapType(m.Struct, reconStruct[len(reconStruct)-1])
 	}
-	return recon_struct, nil
 }
