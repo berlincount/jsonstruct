@@ -1,6 +1,6 @@
 # jsonstruct
 
-[![Build Status](https://travis-ci.org/berlincount/jsonstruct.svg?branch=master)](https://travis-ci.org/berlincount/jsonstruct) [![Build Status](https://drone.io/github.com/berlincount/jsonstruct/status.png)](https://drone.io/github.com/berlincount/jsonstruct/latest) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/berlincount/jsonstruct) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/berlincount/jsonstruct/master/LICENSE)
+[![Build Status](https://travis-ci.org/berlincount/jsonstruct.svg?branch=master)](https://travis-ci.org/berlincount/jsonstruct) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/berlincount/jsonstruct) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/berlincount/jsonstruct/master/LICENSE)
 
 
 A JSON deserializer for Go structures for Go 1.7+
@@ -32,17 +32,17 @@ jsonstruct uses the following structures for descriptions:
 
 ```go
 type Field struct {
-        Name string            "json:name"
-        Type string            "json:type"
-        Tags reflect.StructTag "json:tags"
+        Name string            "json:\"name\""
+        Type string            "json:\"type\""
+        Tags reflect.StructTag "json:\"tags\""
 }
 type Struct struct {
-        Struct string "json:struct"
+        Struct string "json:\"struct\""
         Fields []Field
 }
 ```
 
-which allows to describe the example structures from [JSON
+which allows e.g. to describe the example structures from [JSON
 API](http://godoc.org/github.com/google/jsonapi) using the following structure:
 
 ```javascript
@@ -74,11 +74,11 @@ API](http://godoc.org/github.com/google/jsonapi) using the following structure:
 
 ## Example Apps
 
-[examples/jsonapi/example.go](https://github.com/berlincount/jsonstruct/blob/master/examples/jsonapi/example.go)
+[examples/jsonapi/jsonapi.go](https://github.com/berlincount/jsonstruct/blob/master/examples/jsonapi/jsonapi.go)
 
-[examples/database/sqlx.go](https://github.com/berlincount/jsonstruct/blob/master/examples/database/sqlx.go)
+[examples/sqlx/sqlx.go](https://github.com/berlincount/jsonstruct/blob/master/examples/sqlx/sqlx.go)
 
-[examples/database/gorm.go](https://github.com/berlincount/jsonstruct/blob/master/examples/database/gorm.go)
+[examples/gorm/gorm.go](https://github.com/berlincount/jsonstruct/blob/master/examples/gorm/gorm.go)
 
 These runnable files show using jsonstruct with JSON API as well as in conjunction with a database using [sqlx](https://github.com/jmoiron/sqlx) or [GORM](https://github.com/jinzhu/gorm).
 

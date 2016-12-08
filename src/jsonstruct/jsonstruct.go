@@ -1,3 +1,4 @@
+// Package jsonstruct provides a JSON deserializer for Go structures for Go 1.7+
 package jsonstruct
 
 import (
@@ -7,10 +8,10 @@ import (
 	"reflect"
 )
 
-// Type registry
-
+// TypeMap provides a Type registry, mapping type names to reflect Types
 var TypeMap map[string]reflect.Type
 
+// MapType adds a new Type (plus its [], * and []* variants) to the registry
 func MapType(Name string, Type reflect.Type) {
 	// Register Type under Name
 	TypeMap[Name] = Type
@@ -20,6 +21,7 @@ func MapType(Name string, Type reflect.Type) {
 	TypeMap["[]*"+Name] = reflect.SliceOf(reflect.PtrTo(Type))
 }
 
+// initalize basic types we can expect with JSON
 func init() {
 	TypeMap = make(map[string]reflect.Type)
 	// approximations for JSON Datatypes Number, String & Boolean
@@ -29,18 +31,20 @@ func init() {
 	MapType("bool", reflect.TypeOf(true))
 }
 
-// Decoding
-
+// Field holds a JSON description of individual Go fields
 type Field struct {
 	Name string            "json:\"name\""
 	Type string            "json:\"type\""
 	Tags reflect.StructTag "json:\"tags\""
 }
+
+// Struct holds JSON description of Go structures
 type Struct struct {
 	Struct string "json:\"struct\""
 	Fields []Field
 }
 
+// Decode one or multiple Go structures from JSON, register and return their Types
 func Decode(r io.Reader) ([]reflect.Type, error) {
 	dec := json.NewDecoder(r)
 
@@ -50,14 +54,14 @@ func Decode(r io.Reader) ([]reflect.Type, error) {
 	for {
 		// catch JSON decode errors
 		if err := dec.Decode(&m); err == io.EOF {
-			// EOF? return the last struct type we found
+			// EOF? return our collected struct types
 			return reconStruct, nil
 		} else if err != nil {
 			return nil, err
 		}
 
 		// JSON data inconsistent?
-		if len(m.Struct) < 0 {
+		if len(m.Struct) <= 0 {
 			return nil, errors.New("empty struct name")
 		}
 
@@ -77,5 +81,7 @@ func Decode(r io.Reader) ([]reflect.Type, error) {
 		// create new struct type (and register it)
 		reconStruct = append(reconStruct, reflect.StructOf(newStruct))
 		MapType(m.Struct, reconStruct[len(reconStruct)-1])
+
+		// continue in loop until EOF (error condition) is encountered
 	}
 }

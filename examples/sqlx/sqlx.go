@@ -31,16 +31,23 @@ func main() {
 	  LastName  string `db:"last_name"`
 	}
 	*/
-	person_struct_json := `
+	personStructJSON := `
         {"struct": "person",
          "fields": [
           {"name": "FirstName","type": "string", "tags": "db:\"first_name\""},
           {"name": "LastName", "type": "string", "tags": "db:\"last_name\""}
         ]}
 	`
-	person_struct_type, _ := jsonstruct.Decode(strings.NewReader(person_struct_json))
-	person_struct_value := reflect.New(person_struct_type)
-	person_struct_interface := person_struct_value.Interface()
+	decodedStructs, err := jsonstruct.Decode(strings.NewReader(personStructJSON))
+	if err != nil {
+		panic("something went terribly wrong decoding the structures")
+	}
+	if len(decodedStructs) != 1 {
+		panic("something went rather unexpected decoding the structures")
+	}
+	personStructType := decodedStructs[len(decodedStructs)-1]
+	personStructValue := reflect.New(personStructType)
+	personStructInterface := personStructValue.Interface()
 
 	// populate with some data
 	insertPerson := `INSERT INTO person (first_name, last_name) VALUES (?, ?)`
@@ -49,9 +56,15 @@ func main() {
 	db.MustExec(insertPerson, "Herman", "Toothrot")
 
 	// query the data into Go struct
-	rows, _ := db.Queryx("SELECT * FROM person")
+	rows, err := db.Queryx("SELECT * FROM person")
+	if err != nil {
+		panic("something went terribly wrong while selecting rows")
+	}
 	for rows.Next() {
-		_ = rows.StructScan(person_struct_interface)
-		spew.Dump(person_struct_interface)
+		err = rows.StructScan(personStructInterface)
+		if err != nil {
+			panic("something went terribly wrong while fetching row")
+		}
+		spew.Dump(personStructInterface)
 	}
 }
