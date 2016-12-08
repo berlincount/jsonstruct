@@ -6,6 +6,7 @@ import (
 	"errors"
 	"io"
 	"reflect"
+	"strings"
 )
 
 // TypeMap provides a Type registry, mapping type names to reflect Types
@@ -69,6 +70,10 @@ func Decode(r io.Reader) ([]reflect.Type, error) {
 		// gather fields of struct
 		newStruct := make([]reflect.StructField, 0, len(m.Fields))
 		for _, field := range m.Fields {
+			firstChar := strings.Split(field.Name, "")[0]
+			if firstChar == strings.ToLower(firstChar) {
+				return nil, errors.New("unsupported private fields found in structures")
+			}
 			newStruct = append(newStruct, reflect.StructField{
 				Name:      field.Name,
 				PkgPath:   "",
