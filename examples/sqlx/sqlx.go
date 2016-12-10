@@ -45,7 +45,7 @@ func main() {
 	if len(decodedStructs) != 1 {
 		panic("something went rather unexpected decoding the structures")
 	}
-	personStructType := decodedStructs[len(decodedStructs)-1]
+	personStructType := decodedStructs["person"]
 	personStructValue := reflect.New(personStructType)
 	personStructInterface := personStructValue.Interface()
 

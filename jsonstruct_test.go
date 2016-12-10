@@ -71,11 +71,11 @@ func TestDecode1(t *testing.T) {
 		panic("something went rather unexpected decoding the structures")
 	}
 
-	if decodedStructs[0].NumField() != 2 {
+	if decodedStructs["test"].NumField() != 2 {
 		t.Errorf("wrong number of fields was decoded")
 	}
 
-	firstField := decodedStructs[0].Field(0)
+	firstField := decodedStructs["test"].Field(0)
 	if firstField.Name != "TestInt" {
 		t.Errorf("first field name was unpacked wrongly")
 	}
@@ -93,7 +93,7 @@ func TestDecode1(t *testing.T) {
 		t.Errorf("first field is anonymous")
 	}
 
-	secondField := decodedStructs[0].Field(1)
+	secondField := decodedStructs["test"].Field(1)
 	if secondField.Name != "TestString" {
 		t.Errorf("second field name was unpacked wrongly")
 	}
@@ -112,7 +112,7 @@ func TestDecode1(t *testing.T) {
 	}
 
 	if rtype, present := jsonstruct.TypeMap["test"]; present {
-		if rtype != decodedStructs[0] {
+		if rtype != decodedStructs["test"] {
 			t.Errorf("wrong basic type was registered")
 		}
 	} else {
@@ -123,11 +123,17 @@ func TestDecode1(t *testing.T) {
 func TestDecode2(t *testing.T) {
 	testStructJSON := `
         {"struct": "test1",
-         "fields": []}
+         "fields": [
+          {"name": "TestField1",    "type": "int",    "tags": ""}
+         ]}
         {"struct": "test2",
-         "fields": []}
+         "fields": [
+          {"name": "TestField2",    "type": "int",    "tags": ""}
+         ]}
         {"struct": "test3",
-         "fields": []}
+         "fields": [
+          {"name": "TestField3",    "type": "int",    "tags": ""}
+         ]}
 	`
 	decodedStructs, err := jsonstruct.Decode(strings.NewReader(testStructJSON))
 	if err != nil {
@@ -137,12 +143,12 @@ func TestDecode2(t *testing.T) {
 		panic("something went rather unexpected decoding the structures")
 	}
 
-	if decodedStructs[0].NumField() != 0 || decodedStructs[1].NumField() != 0 || decodedStructs[2].NumField() != 0 {
+	if decodedStructs["test1"].NumField() != 1 || decodedStructs["test2"].NumField() != 1 || decodedStructs["test3"].NumField() != 1 {
 		t.Errorf("wrong number of fields was decoded")
 	}
 
 	if rtype, present := jsonstruct.TypeMap["test1"]; present {
-		if rtype != decodedStructs[0] {
+		if rtype != decodedStructs["test1"] {
 			t.Errorf("wrong basic type1 was registered")
 		}
 	} else {
@@ -150,7 +156,7 @@ func TestDecode2(t *testing.T) {
 	}
 
 	if rtype, present := jsonstruct.TypeMap["test2"]; present {
-		if rtype != decodedStructs[1] {
+		if rtype != decodedStructs["test2"] {
 			t.Errorf("wrong basic type2 was registered")
 		}
 	} else {
@@ -158,7 +164,7 @@ func TestDecode2(t *testing.T) {
 	}
 
 	if rtype, present := jsonstruct.TypeMap["test3"]; present {
-		if rtype != decodedStructs[2] {
+		if rtype != decodedStructs["test3"] {
 			t.Errorf("wrong basic type3 was registered")
 		}
 	} else {
@@ -204,8 +210,7 @@ func ExampleDecode() {
 	spewWithoutAddresses := spew.ConfigState{DisablePointerAddresses: true}
 	spewWithoutAddresses.Dump(decodedStructs)
 	// Output:
-	// ([]reflect.Type) (len=1 cap=1) {
-	// (*reflect.rtype)(struct { TestInt int "testTag:\"first_field\""; TestString string "testTag:\"second_field\"" })
+	// (map[string]reflect.Type) (len=1) {
+	// (string) (len=4) "test": (*reflect.rtype)(struct { TestInt int "testTag:\"first_field\""; TestString string "testTag:\"second_field\"" })
 	// }
-
 }

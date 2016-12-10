@@ -14,13 +14,18 @@ import (
 
 func main() {
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
+		// GORM can detect the struct name? great, let's use that!
+		if defaultTableName != "" {
+			return defaultTableName
+		}
 		// Madness!
 		// We're extracting the table name from the dbtable tag of the
 		// first field, as gorm can't find the struct name - and would
 		// always use "" as table name
 		tablename, present := reflect.TypeOf(db.Value).Elem().Field(0).Tag.Lookup("dbtable")
 		if !present {
-			return "unknown"
+			// plural of first field name if we couldn't find anything
+			return reflect.TypeOf(db.Value).Elem().Field(0).Name + "s"
 		}
 		return tablename
 
@@ -50,7 +55,7 @@ func main() {
 	if len(decodedStructs) != 1 {
 		panic("something went rather unexpected decoding the structures")
 	}
-	personStructType := decodedStructs[len(decodedStructs)-1]
+	personStructType := decodedStructs["person"]
 	personStructValue := reflect.New(personStructType)
 	personStructInterface := personStructValue.Interface()
 

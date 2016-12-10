@@ -1,11 +1,4 @@
 {
 	"version": 0,
-	"dependencies": [
-		{
-			"importpath": "github.com/davecgh/go-spew",
-			"repository": "https://github.com/davecgh/go-spew",
-			"revision": "346938d642f2ec3594ed81d874461961cd0faa76",
-			"branch": "master"
-		}
-	]
+	"dependencies": []
 }

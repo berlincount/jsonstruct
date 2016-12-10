@@ -51,7 +51,7 @@ func main() {
 	if len(decodedStructs) != 3 {
 		panic("something went rather unexpected decoding the structures")
 	}
-	blogStructType := decodedStructs[len(decodedStructs)-1]
+	blogStructType := decodedStructs["blog"]
 	blogStructValue := reflect.New(blogStructType)
 	blogStructInterface := blogStructValue.Interface()
 

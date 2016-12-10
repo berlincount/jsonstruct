@@ -2,5 +2,5 @@ language: go
 go:
  - 1.7
  - tip
-install: go get github.com/constabulary/gb/... ; gb vendor restore
+install: go get github.com/constabulary/gb/... ; gb vendor restore ; gb vendor fetch github.com/davecgh/go-spew
 script: gb test -v

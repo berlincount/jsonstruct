@@ -46,17 +46,17 @@ type Struct struct {
 }
 
 // Decode one or multiple Go structures from JSON, register and return their Types
-func Decode(r io.Reader) ([]reflect.Type, error) {
+func Decode(r io.Reader) (map[string]reflect.Type, error) {
 	dec := json.NewDecoder(r)
 
 	// we're reconstructing a stream of one or more structs
 	var m Struct
-	var reconStruct []reflect.Type
+	structMap := make(map[string]reflect.Type)
 	for {
 		// catch JSON decode errors
 		if err := dec.Decode(&m); err == io.EOF {
 			// EOF? return our collected struct types
-			return reconStruct, nil
+			return structMap, nil
 		} else if err != nil {
 			return nil, err
 		}
@@ -84,8 +84,8 @@ func Decode(r io.Reader) ([]reflect.Type, error) {
 		}
 
 		// create new struct type (and register it)
-		reconStruct = append(reconStruct, reflect.StructOf(newStruct))
-		MapType(m.Struct, reconStruct[len(reconStruct)-1])
+		structMap[m.Struct] = reflect.StructOf(newStruct)
+		MapType(m.Struct, structMap[m.Struct])
 
 		// continue in loop until EOF (error condition) is encountered
 	}
